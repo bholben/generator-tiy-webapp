@@ -59,9 +59,13 @@ AppGenerator.prototype.askFor = function askFor() {
       name: 'features',
       message: 'What more would you like?',
       choices: [{
-        name: 'Bourbon & Neat',
+        name: 'Bourbon & Neat (Sass library & grid framework)',
         value: 'includeBourbon',
         checked: true
+      }, {
+        name: 'Nib & Jeet (Stylus library & grid framework)',
+        value: 'includeNib',
+        checked: false
       }, {
         name: 'UnderscoreJS',
         value: 'includeUnderscore',

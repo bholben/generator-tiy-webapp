@@ -13,6 +13,7 @@ This is a simple [Yeoman](http://yeoman.io/) generator based off the [Gulp Gener
 * Stylus*
 * Modernizer*
 * Bourbon*
+* nib*
 * Underscore*
 
 _* optional during setup_
