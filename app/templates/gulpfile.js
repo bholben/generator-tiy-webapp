@@ -9,13 +9,27 @@ var exec = require('child_process').exec;
 var prompt = require('gulp-prompt');
 
 gulp.task('styles', function () {<% if (includeSass) { %>
+
+  // If using main.scss...
   return gulp.src('app/styles/main.scss')
     .pipe($.plumber())
     .pipe($.rubySass({
       style: 'compressed',
       precision: 10
+    }))<% } else if (includeStylus) { %>
+
+  // If using main.styl...
+  return gulp.src('app/styles/main.styl')
+    .pipe($.plumber())
+    .pipe($.stylus({
+      use: [nib(), jeet()],
+      compress: true
     }))<% } else { %>
+
+  // If using main.css...
   return gulp.src('app/styles/main.css')<% } %>
+
+  // Finish up for all...
     .pipe($.autoprefixer('last 1 version'))
     .pipe(gulp.dest('.tmp/styles'));
 });
@@ -87,6 +101,11 @@ gulp.task('wiredep', function () {
     .pipe(wiredep({directory: 'bower_components'}))
     .pipe(gulp.dest('app/styles'));
 <% } %>
+<% if (includeStylus) { %>
+  gulp.src('app/styles/*.styl')
+    .pipe(wiredep({directory: 'bower_components'}))
+    .pipe(gulp.dest('app/styles'));
+<% } %>
   gulp.src('app/*.html')
     .pipe(wiredep({
       directory: 'bower_components'
@@ -105,7 +124,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
-  gulp.watch('app/styles/**/*.<%= includeSass ? 'scss' : 'css' %>', ['styles']);
+  gulp.watch('app/styles/**/*.<%= includeSass ? 'scss' : includeStylus ? 'styl' : 'css' %>', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });
 
