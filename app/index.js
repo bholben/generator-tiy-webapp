@@ -88,7 +88,10 @@ AppGenerator.prototype.askFor = function askFor() {
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeSass = hasFeature('includeSass');
+    this.includeStylus = hasFeature('includeStylus');
+    this.noCssPreprocessor = hasFeature('noCssPreprocessor');
     this.includeBourbon = hasFeature('includeBourbon');
+    this.includeNib = hasFeature('includeNib');
     this.includeModernizr = hasFeature('includeModernizr');
     this.includeUnderscore = hasFeature('includeUnderscore');
 
@@ -128,6 +131,7 @@ AppGenerator.prototype.h5bp = function () {
 
 AppGenerator.prototype.mainStylesheet = function () {
   var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
+  css = 'main.' + (this.includeStylus ? 'styl' : 'css');
   this.copy(css, 'app/styles/' + css);
 };
 
@@ -184,6 +188,15 @@ AppGenerator.prototype.install = function () {
           bowerJson: bowerJson,
           directory: 'bower_components',
           src: 'app/styles/*.scss'
+        });
+      }
+
+      if (this.includeStylus) {
+        // wire Bower packages to .styl
+        wiredep({
+          bowerJson: bowerJson,
+          directory: 'bower_components',
+          src: 'app/styles/*.styl'
         });
       }
 
