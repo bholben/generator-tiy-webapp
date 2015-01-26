@@ -37,28 +37,42 @@ AppGenerator.prototype.askFor = function askFor() {
     this.log(chalk.magenta('Included in this generator is HTML5 Boilerplate, Normalize, jQuery, Mocha/Chai and Gulp.'));
   }
 
-  var prompts = [{
-    type: 'checkbox',
-    name: 'features',
-    message: 'What more would you like?',
-    choices: [{
-      name: 'Sass',
-      value: 'includeSass',
-      checked: true
-    }, {
-      name: 'Bourbon & Neat',
-      value: 'includeBourbon',
-      checked: true
-    }, {
-      name: 'UnderscoreJS',
-      value: 'includeUnderscore',
-      checked: true
-    }, {
-      name: 'Modernizr',
-      value: 'includeModernizr',
-      checked: true
-    }]
-  }];
+  var prompts = [
+    {
+      type: 'list',
+      name: 'CSS pre-processor',
+      message: 'What CSS pre-processor would you like to use?',
+      choices: [{
+        name: 'Sass (scss)',
+        value: 'includeSass'
+      }, {
+        name: 'Stylus (styl)',
+        value: 'includeStylus'
+      }, {
+        name: 'None',
+        value: 'noCssPreprocessor'
+      }],
+      default: 'includeSass'
+    },
+    {
+      type: 'checkbox',
+      name: 'features',
+      message: 'What more would you like?',
+      choices: [{
+        name: 'Bourbon & Neat',
+        value: 'includeBourbon',
+        checked: true
+      }, {
+        name: 'UnderscoreJS',
+        value: 'includeUnderscore',
+        checked: true
+      }, {
+        name: 'Modernizr',
+        value: 'includeModernizr',
+        checked: true
+      }]
+    }
+  ];
 
   this.prompt(prompts, function (answers) {
     var features = answers.features;

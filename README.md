@@ -10,6 +10,7 @@ This is a simple [Yeoman](http://yeoman.io/) generator based off the [Gulp Gener
 * Normalize
 * Mocha/Chai
 * Sass*
+* Stylus*
 * Modernizer*
 * Bourbon*
 * Underscore*
